@@ -1,26 +1,46 @@
-const axios = require("axios").default;
-const books = [
-    {
-        title: "The Awakening",
-        author: "Kate Chopin",
-    },
-    {
-        title: "City of Glass",
-        author: "Paul Auster",
-    },
-];
-module.exports = {
+const resolvers = {
     Query: {
-        oneProduct: (_, { id }) => [
-            axios
-                .get(`https://fakestoreapi.com/products/${id}`)
-                .then((res) => res.data),
-        ],
-        allProducts: (_, { limit, sort }) =>
-            axios
-                .get(
-                    `https://fakestoreapi.com/products?limit=${limit}&sort=${sort}`,
-                )
-                .then((res) => res.data),
+        async user(root, { id }, { models }) {
+            return models.User.findAll({ where: { id } });
+        },
+        async allBooks(root, args, { models }) {
+            return models.Book.findAll();
+        },
+        async book(root, { id }, { models }) {
+            return models.Book.findAll({ where: { id } });
+        },
+    },
+    Mutation: {
+        async createUser(root, { name, email, password }, { models }) {
+            return models.User.create({
+                name,
+                email,
+                password,
+            });
+        },
+        async createBook(
+            root,
+            { UserId, title, descreption, author },
+            { models },
+        ) {
+            return models.Book.create({
+                title,
+                descreption,
+                author,
+                UserId,
+            });
+        },
+    },
+    User: {
+        async book(user) {
+            return user.getBooks();
+        },
+    },
+    Book: {
+        async user(book) {
+            return book.getUser();
+        },
     },
 };
+
+module.exports = resolvers;

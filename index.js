@@ -1,5 +1,6 @@
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
+const models = require("./models");
 const {
     ApolloServerPluginLandingPageGraphQLPlayground,
     ApolloServerPluginLandingPageDisabled,
@@ -11,19 +12,20 @@ async function startApolloServer() {
     const server = new ApolloServer({
         typeDefs,
         resolvers,
+        context: { models },
         plugins: [
             //ApolloServerPluginLandingPageDisabled(),
             //ApolloServerPluginLandingPageGraphQLPlayground(),
-            {
-                async serverWillStart() {
-                    return {
-                        async renderLandingPage() {
-                            const html = '{"message" : "Hello world!!"}';
-                            return { html };
-                        },
-                    };
-                },
-            },
+            //     {
+            //         async serverWillStart() {
+            //             return {
+            //                 async renderLandingPage() {
+            //                     const html = '{"message" : "Hello world!!"}';
+            //                     return { html };
+            //                 },
+            //             };
+            //         },
+            //     },
         ],
     });
     await server.start();
