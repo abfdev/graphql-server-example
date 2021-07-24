@@ -1,6 +1,7 @@
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
 const models = require("./models");
+require("dotenv").config();
 const {
     ApolloServerPluginLandingPageGraphQLPlayground,
     ApolloServerPluginLandingPageDisabled,
@@ -33,7 +34,9 @@ async function startApolloServer() {
     const app = express();
     server.applyMiddleware({ app, path: "/api" });
 
-    await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
+    await new Promise((resolve) =>
+        app.listen({ port: process.env.NODE_PORT }, resolve),
+    );
     console.log(
         `🚀 Server starting at http://localhost:4000${server.graphqlPath}`,
     );
