@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "graphql-db",
-    "host": "localhost",
+    "database": "article_api_db",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {

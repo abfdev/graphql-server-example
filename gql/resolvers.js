@@ -1,44 +1,23 @@
 const resolvers = {
     Query: {
-        async user(root, { id }, { models }) {
-            return models.User.findAll({ where: { id } });
+        async getArticle(root, { id, articleSlug }, { models }) {
+            return models.Article.findOne({ where: { id, articleSlug } });
         },
-        async allBooks(root, args, { models }) {
-            return models.Book.findAll();
-        },
-        async book(root, { id }, { models }) {
-            return models.Book.findAll({ where: { id } });
+        async getAllArticles(root, args, { models }) {
+            return models.Article.findAll();
         },
     },
     Mutation: {
-        async createUser(root, { name, email, password }, { models }) {
-            return models.User.create({
-                name,
-                email,
-                password,
-            });
-        },
-        async createBook(
+        async createArticle(
             root,
-            { UserId, title, descreption, author },
+            { articleTitle, articleSlug, articleContent },
             { models },
         ) {
-            return models.Book.create({
-                title,
-                descreption,
-                author,
-                UserId,
+            return models.Article.create({
+                articleTitle,
+                articleSlug,
+                articleContent,
             });
-        },
-    },
-    User: {
-        async book(user) {
-            return user.getBooks();
-        },
-    },
-    Book: {
-        async user(book) {
-            return book.getUser();
         },
     },
 };
