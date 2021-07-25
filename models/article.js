@@ -22,5 +22,7 @@ module.exports = (sequelize, DataTypes) => {
             modelName: "Article",
         },
     );
+    Article.associate = (models) =>
+        Article.belongsToMany(models.Tag, { through: "ArticleTag" });
     return Article;
 };

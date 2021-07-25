@@ -30,15 +30,15 @@ async function startApolloServer() {
         ],
     });
     await server.start();
-
     const app = express();
     server.applyMiddleware({ app, path: "/api" });
-
     await new Promise((resolve) =>
         app.listen({ port: process.env.NODE_PORT }, resolve),
     );
     console.log(
-        `🚀 Server starting at http://localhost:4000${server.graphqlPath}`,
+        `🚀 Server starting at http://localhost:${
+            process.env.NODE_PORT + server.graphqlPath
+        }`,
     );
     return { server, app };
 }

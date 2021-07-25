@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "generateDB": "node generateDB"
   },
   "keywords": [],
   "author": "",
