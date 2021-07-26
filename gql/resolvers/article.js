@@ -1,4 +1,4 @@
-const resolvers = {
+module.exports = {
     Query: {
         async getArticle(_, args, context) {
             const { Article } = context.models;
@@ -21,5 +21,3 @@ const resolvers = {
         },
     },
 };
-
-module.exports = resolvers;
