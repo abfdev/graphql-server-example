@@ -29,7 +29,7 @@ const { typeDefs, resolvers } = require("./gql");
 // }
 // startApolloServer();
 (async function () {
-    const port = process.env.NODE_PORT;
+    const port = process.env.NODE_PORT || 3500;
     const path = "/graphql";
     const server = new ApolloServer({
         typeDefs,
@@ -41,7 +41,7 @@ const { typeDefs, resolvers } = require("./gql");
     server.applyMiddleware({ app, path });
     await new Promise((resolve) => app.listen({ port }, resolve));
     console.log(
-        `🚀 Server run at http://localhost:${port + server.graphqlPath}`,
+        `🚀 Server run at http://localhost:${port + server.graphqlPath}`
     );
     return { server, app };
 })();
